@@ -182,6 +182,7 @@ const Modal: React.FC<ModalProps> = ({
                     onClick={handleSumbit}
                   />
                 </div>
+                {footer}
               </div>
             </div>
           </div>
