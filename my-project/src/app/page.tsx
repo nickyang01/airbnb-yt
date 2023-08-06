@@ -4,9 +4,11 @@ import Container from "./components/Container";
 import ClientOnly from "./components/ClientOnly";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
+import getCurrentUser from "./actions/getCurrentUser";
 
 export default async function Home() {
   const listings = await getListings();
+  const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
     return (
@@ -30,9 +32,10 @@ export default async function Home() {
           2xl:grid-cols-6
           gap-8
         ">
-          {listings.map((listing: any) => {
+          {listings.map((listing) => {
             return (
               <ListingCard 
+                currentUser={currentUser}
                 key={listing.id}
                 data={listing}
               />
