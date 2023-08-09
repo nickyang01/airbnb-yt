@@ -1,13 +1,13 @@
-import getCurrentUser from "./actions/getCurrentUser";
-import getListings, { IListingParams } from "./actions/getListings";
-
 import Container from "./components/Container";
-import ClientOnly from "./components/ClientOnly";
-import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
+import EmptyState from "./components/EmptyState";
+
+import getListings, { IListingsParams } from "./actions/getListings";
+import getCurrentUser from "./actions/getCurrentUser";
+import ClientOnly from "./components/ClientOnly";
 
 interface HomeProps {
-  searchParams: IListingParams
+  searchParams: IListingsParams
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
@@ -19,10 +19,8 @@ const Home = async ({ searchParams }: HomeProps) => {
       <ClientOnly>
         <EmptyState showReset />
       </ClientOnly>
-    )
+    );
   }
-
-  throw new Error('Something went wrong');
 
   return (
     <ClientOnly>
@@ -38,7 +36,7 @@ const Home = async ({ searchParams }: HomeProps) => {
           2xl:grid-cols-6
           gap-8
         ">
-          {listings.map((listing) => {
+          {listings.map((listing: any) => {
             return (
               <ListingCard 
                 currentUser={currentUser}
@@ -52,3 +50,5 @@ const Home = async ({ searchParams }: HomeProps) => {
     </ClientOnly>
   )
 }
+
+export default Home;

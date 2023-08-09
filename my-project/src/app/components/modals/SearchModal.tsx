@@ -13,9 +13,7 @@ import Modal from "./Modal";
 import Calendar from "../inputs/Calendar";
 import Counter from "../inputs/Counter";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
-
 import Heading from "../Heading";
-import { Container } from "postcss";
 
 enum STEPS {
   LOCATION = 0,
@@ -25,11 +23,12 @@ enum STEPS {
 
 const SearchModal = () => {
   const router = useRouter();
-  const params = useSearchParams()
   const searchModal = useSearchModal();
+  const params = useSearchParams();
 
-  const [location, setLocation] = useState<CountrySelectValue>()
   const [step, setStep] = useState(STEPS.LOCATION);
+
+  const [location, setLocation] = useState<CountrySelectValue>();
   const [guestCount, setGuestCount] = useState(1);
   const [roomCount, setRoomCount] = useState(1);
   const [bathroomCount, setBathroomCount] = useState(1);
@@ -85,7 +84,6 @@ const SearchModal = () => {
 
     setStep(STEPS.LOCATION);
     searchModal.onClose();
-
     router.push(url);
   },
   [
@@ -118,7 +116,7 @@ const SearchModal = () => {
   }, [step]);
 
   let bodyContent = (
-    <div className="flex felx-col gap-8">
+    <div className="flex flex-col gap-8">
       <Heading
       title="Where do you wanna go?"
       subtitle="Find the perfect location!"
@@ -142,8 +140,8 @@ const SearchModal = () => {
           subtitle="Make sure everyone is free!"
         />
         <Calendar
-          value={dateRange}
           onChange={(value) => setDateRange(value.selection)}
+          value={dateRange}
         />
       </div>
     )
@@ -183,12 +181,12 @@ const SearchModal = () => {
   return (
     <Modal
       isOpen={searchModal.isOpen}
-      onClose={searchModal.onClose}
-      onSubmit={searchModal.onOpen}
       title="Filters"
-      actionLabel="Search"
+      actionLabel={actionLabel}
+      onSubmit={onSubmit}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
+      onClose={searchModal.onClose}
       body={bodyContent}
     />
   );
